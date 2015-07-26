@@ -1,0 +1,25 @@
+<h1>Questions</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Question ID</th>
+      <th>Question</th>
+      <th>Submitted By</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @questions %>
+      <% @questions.each do |q| %>
+        <tr>
+          <td><%= q.id %></td>
+          <td><%= q.question_text %></td>
+          <td><%= q.user.email %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Question', new_question_path, class: "btn btn-success" %>
