@@ -6,6 +6,7 @@
       <th>Question ID</th>
       <th>Question</th>
       <th>Submitted By</th>
+      <th>Answers Submitted</th>
     </tr>
   </thead>
 
@@ -16,6 +17,7 @@
           <td><%= link_to q.id, question_path(q.id) %></td>
           <td><%= q.question_text %></td>
           <td><%= q.user.email %></td>
+          <td><%= link_to q.responses.count, question_responses_path(q.id) %></td>
         </tr>
       <% end %>
     <% end %>

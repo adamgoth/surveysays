@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @response.question.question_text %>
+  <br>
+  <strong>Response:</strong>
+  <%= @response.response_text %>
+</p>
+
+<br>
+<%= link_to 'Back', questions_path, class: "btn btn-default" %>
