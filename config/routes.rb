@@ -6,8 +6,12 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'questions#index'
 
-  resources :questions do
-    resources :responses
+  resources :questions
+
+  resources :surveys do
+    resources :questions do
+      resources :responses
+    end
   end
 
   # Example of regular route:

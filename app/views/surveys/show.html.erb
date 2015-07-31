@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Survey:</strong>
+  <% @survey.questions.each do |q| %>
+  	<%= q.question_text %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_survey_path(@survey), class: "btn btn-default" %>
+<%= link_to 'Back', surveys_path, class: "btn btn-default" %>

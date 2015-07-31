@@ -1,0 +1,24 @@
+<h1>Surveys</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Survey ID</th>
+      <th>Questions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @surveys %>
+      <% @surveys.each do |s| %>
+        <tr>
+          <td><%= link_to s.id, survey_path(s.id) %></td>
+          <td><%= s.questions.count %></td>
+          <%#<td><%= link_to s.questions.responses.count, question_responses_path(q.id) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Survey', new_survey_path, class: "btn btn-success" %>
