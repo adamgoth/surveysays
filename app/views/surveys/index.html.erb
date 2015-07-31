@@ -5,6 +5,7 @@
     <tr>
       <th>Survey ID</th>
       <th>Questions</th>
+      <th>Responses</th>
     </tr>
   </thead>
 
@@ -14,7 +15,7 @@
         <tr>
           <td><%= link_to s.id, survey_path(s.id) %></td>
           <td><%= s.questions.count %></td>
-          <%#<td><%= link_to s.questions.responses.count, question_responses_path(q.id) %></td>
+          <td><%= s.responses_count %></td>
         </tr>
       <% end %>
     <% end %>

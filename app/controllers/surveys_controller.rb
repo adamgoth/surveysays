@@ -8,6 +8,7 @@ class SurveysController < ApplicationController
 
   def show
   	@survey = Survey.find(params[:id])
+    @responses = Response.where(survey_id: @survey.id).all
   end
 
   def new
@@ -32,7 +33,7 @@ class SurveysController < ApplicationController
     if @survey.update(survey_params)
       redirect_to @survey, notice: 'Survey was successfully updated.'
     else
-      render action: 'edit'
+      render action: 'show'
     end
   end
 
@@ -40,6 +41,12 @@ class SurveysController < ApplicationController
   def destroy
     @survey.destroy
     redirect_to surveys_url
+  end
+
+  def responses
+    @users = User.all
+    @survey = Survey.find(params[:id])
+    @questions = @survey.questions
   end
 
 
@@ -51,6 +58,11 @@ class SurveysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_params
-      params.require(:survey).permit(:user_id, :question_id, :question_ids => [])
+      params.require(:survey).permit(:user_id, 
+                                    :question_id, 
+                                    :question_ids => [],
+                                    :questions_attributes => [:id, :question_text,
+                                    :responses_attributes => [:id, :response_text, :user_id, :survey_id, :rating] 
+                                    ])
     end
 end

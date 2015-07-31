@@ -1,11 +1,32 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Survey:</strong>
+  <h1>Survey</h1><br>
   <% @survey.questions.each do |q| %>
+  	<strong>Question:</strong>
   	<%= q.question_text %>
+  	<br>
+	<% q.responses.where(survey_id: @survey.id).each do |r| %>
+	<strong>Response:</strong>
+	<%= r.response_text %>
+	<br>
+	<strong>Survey:</strong>
+	<%= r.survey_id %>
+	<br>
+	<strong>Question:</strong>
+	<%= r.question_id %>
+	<br>
+	<strong>Rating:</strong>
+	<%= r.rating %>
+	<br>
+	<strong>Submitted By:</strong>
+	<%= r.user.email %>
+	<br>
+	<strong>Submitted At:</strong>
+	<%= r.updated_at %>
+	<br><br>
+	<% end %>
   <% end %>
-</p>
 
-<%= link_to 'Edit', edit_survey_path(@survey), class: "btn btn-default" %>
+</p>
+<%= link_to 'Submit or edit responses to this survey', responses_survey_path(:survey_id => @survey.id), class: "btn btn-success" %>
+<%= link_to 'Edit Survey Questions', edit_survey_path(@survey), class: "btn btn-default" %>
 <%= link_to 'Back', surveys_path, class: "btn btn-default" %>

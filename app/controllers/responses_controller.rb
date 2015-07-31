@@ -15,6 +15,7 @@ class ResponsesController < ApplicationController
   end
 
   def new
+    @survey = Survey.find(params[:survey_id])
     @question = Question.find(params[:question_id])
     @response = current_user.responses.new(:question_id => params[:question_id])
   end
@@ -23,10 +24,11 @@ class ResponsesController < ApplicationController
   end
 
   def create
+    @survey = Survey.find(params[:survey_id])
     @question = Question.find(params[:question_id])
     @response = current_user.responses.build(response_params)
     if @response.save
-      redirect_to question_response_path(@response.question, @response), notice: 'Response was successfully created.'
+      redirect_to survey_question_response_path(@survey.id, @response.question, @response), notice: 'Response was successfully created.'
     else
       render action: 'new'
     end
@@ -34,8 +36,9 @@ class ResponsesController < ApplicationController
 
 
   def update
+    @survey = Survey.find(params[:survey_id])
     if @response.update(response_params)
-      redirect_to question_response_path(@response.question, @response), notice: 'Response was successfully created.'
+      redirect_to survey_question_response_path(@survey.id, @response.question, @response), notice: 'Response was successfully created.'
     else
       render action: 'edit'
     end
@@ -56,6 +59,6 @@ class ResponsesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def response_params
-      params.require(:response).permit(:response_text, :user_id, :question_id)
+      params.require(:response).permit(:response_text, :user_id, :question_id, :survey_id, :rating)
     end
 end
